@@ -4,11 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4406de58-bd9b-4335-bb5c-71a0cbcf20d9" name="Changes" comment="" />
+    <list default="true" id="4406de58-bd9b-4335-bb5c-71a0cbcf20d9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/config/RestClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/controller/BffCatalogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/controller/BffWorkOrderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/security/JwtRoleConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,11 +59,12 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.MsDigitalfixBffApplication.executor": "Run",
     "Spring Boot.MsDigitalfixCatalogApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "ms-catalog",
+    "git-widget-placeholder": "bff",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/jesu/Documentos/GitHub/DigitalFix-BackeEnd/ms-digitalfix-catalog",
+    "last_opened_file_path": "/home/jesu/Documentos/GitHub/DigitalFix-BackeEnd/ms-digitalfix-workorders",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
