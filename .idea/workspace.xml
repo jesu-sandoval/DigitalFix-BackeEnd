@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4406de58-bd9b-4335-bb5c-71a0cbcf20d9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/config/RestClientConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/controller/BffCatalogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/controller/BffWorkOrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/security/JwtRoleConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/security/JwtRoleConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/java/com/digitalfix/bff/security/JwtRoleConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ms-digitalfix-bff/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,22 +55,28 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.MsDigitalfixBffApplication.executor": "Run",
     "Spring Boot.MsDigitalfixCatalogApplication.executor": "Run",
+    "Spring Boot.MsDigitalfixWorkordersApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "bff",
+    "git-widget-placeholder": "conexion-formularios-Back",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/jesu/Documentos/GitHub/DigitalFix-BackeEnd/ms-digitalfix-workorders",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
+    "python.packages.toolwindow.project.migrated.to.right.top.v2": "true",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
       </set>
     </attachedChunks>
   </component>

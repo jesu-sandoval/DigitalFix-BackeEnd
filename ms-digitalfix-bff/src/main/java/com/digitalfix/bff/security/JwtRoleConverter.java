@@ -17,7 +17,7 @@ public class JwtRoleConverter implements Converter<Jwt, Collection<GrantedAuthor
         List<String> roles = jwt.getClaimAsStringList("roles");
 
         if (roles == null || roles.isEmpty()) {
-            return Collections.emptyList();
+            return List.of(new SimpleGrantedAuthority("ROLE_Cliente"));
         }
         return roles.stream()
                 .map(roleName -> new SimpleGrantedAuthority("ROLE_" + roleName))
