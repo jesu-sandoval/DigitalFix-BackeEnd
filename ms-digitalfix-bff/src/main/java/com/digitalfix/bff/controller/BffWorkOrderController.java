@@ -12,7 +12,7 @@ public class BffWorkOrderController {
     private final RestClient restClient;
     private final String workordersServiceUrl;
 
-    public BffWorkOrderController(RestClient restClient, @Value("${services.workorders.url}") String workordersServiceUrl) {
+    public BffWorkOrderController(RestClient restClient, @Value("${SERVICES_WORKORDERS_URL}") String workordersServiceUrl) {
         this.restClient = restClient;
         this.workordersServiceUrl = workordersServiceUrl;
     }
@@ -21,12 +21,15 @@ public class BffWorkOrderController {
     @GetMapping
     @PreAuthorize("hasAnyRole('Cliente', 'Admin', 'Supervisor', 'Auditor')")
     public ResponseEntity<String> listarOrdenes() {
-        String resultado = restClient.get()
-                .uri(workordersServiceUrl + "/api/workorders")
-                .retrieve()
-                .body(String.class);
-
-        return ResponseEntity.ok(resultado);
+        try {
+            String resultado = restClient.get()
+                    .uri(workordersServiceUrl + "/api/workorders")
+                    .retrieve()
+                    .body(String.class);
+            return ResponseEntity.ok(resultado);
+        } catch (Exception e) {
+            return ResponseEntity.ok("[]");
+        }
     }
 
 
