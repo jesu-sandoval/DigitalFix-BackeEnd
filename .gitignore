@@ -1,0 +1,12 @@
+# archivos con claves y variables secretas
+.env
+.env.*
+
+# carpetas de compilacion
+target/
+*.class
+
+# archivos del editor
+.idea/
+*.iml
+.vscode/

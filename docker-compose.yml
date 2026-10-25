@@ -1,4 +1,5 @@
 services:
+  #servicio para el catalogo de productos y servicios
   catalog-service:
     build:
       context: ./ms-digitalfix-catalog
@@ -6,15 +7,16 @@ services:
     container_name: ms-catalog
     restart: unless-stopped
     ports:
-      - "8082:8082"
+      - "${CATALOG_PORT:-8082}:8082"
     environment:
       - SERVER_PORT=8082
-      - DB_URL=jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:6543/postgres?sslmode=require
-      - DB_USERNAME=postgres.gqvxvwmmjcakedurhsfz
-      - DB_PASSWORD=digitalfix12123434
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${CATALOG_DB_USERNAME:-${DB_USERNAME}}
+      - DB_PASSWORD=${DB_PASSWORD}
     networks:
       - backend-net
 
+  #servicio para la gestion de ordenes de trabajo
   workorders-service:
     build:
       context: ./ms-digitalfix-workorders
@@ -22,16 +24,16 @@ services:
     container_name: ms-workorders
     restart: unless-stopped
     ports:
-      - "8083:8083"
+      - "${WORKORDERS_PORT:-8083}:8083"
     environment:
       - SERVER_PORT=8083
-      - DB_URL=jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:6543/postgres?sslmode=require
-      - DB_USERNAME=postgres.gqvxvwmmjcakedurhsfz
-      - DB_PASSWORD=digitalfix12123434
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${WORKORDERS_DB_USERNAME:-${DB_USERNAME}}
+      - DB_PASSWORD=${DB_PASSWORD}
     networks:
       - backend-net
 
-
+  #servicio bff para conectar el frontend con los microservicios
   bff-service:
     build:
       context: ./ms-digitalfix-bff
@@ -39,18 +41,20 @@ services:
     container_name: ms-bff
     restart: unless-stopped
     ports:
-      - "8081:8081"
+      - "${BFF_PORT:-8081}:8081"
     environment:
       - SERVER_PORT=8081
-      - SERVICES_CATALOG_URL=http://catalog-service:8082
-      - SERVICES_WORKORDERS_URL=http://workorders-service:8083
+      - SERVICES_CATALOG_URL=${SERVICES_CATALOG_URL:-http://catalog-service:8082}
+      - SERVICES_WORKORDERS_URL=${SERVICES_WORKORDERS_URL:-http://workorders-service:8083}
+      - JWT_ISSUER_URI=${JWT_ISSUER_URI}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS}
     depends_on:
       - catalog-service
       - workorders-service
     networks:
       - backend-net
 
+#red interna de docker
 networks:
   backend-net:
     driver: bridge
-
