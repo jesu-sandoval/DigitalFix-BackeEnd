@@ -33,7 +33,7 @@ public class BffCatalogController {
     }
 
     @PostMapping("/services")
-    @PreAuthorize("hasAnyRole('Admin', 'Cliente')")
+    @PreAuthorize("hasAnyRole('Admin', 'Supervisor', 'Cliente')")
     public ResponseEntity<String> crearServicio(@RequestBody String body) {
         String resultado = restClient.post()
                 .uri(catalogServiceUrl + "/api/catalog/services")
@@ -45,7 +45,7 @@ public class BffCatalogController {
     }
 
     @PutMapping("/services/{id}")
-    @PreAuthorize("hasAnyRole('Admin', 'Cliente')")
+    @PreAuthorize("hasAnyRole('Admin', 'Supervisor', 'Cliente')")
     public ResponseEntity<String> actualizarServicio(@PathVariable Long id, @RequestBody String body) {
         String resultado = restClient.put()
                 .uri(catalogServiceUrl + "/api/catalog/services/" + id)
