@@ -19,7 +19,7 @@ public class BffWorkOrderController {
 
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('Admin', 'Supervisor', 'Auditor')")
+    @PreAuthorize("hasAnyRole('Cliente', 'Admin', 'Supervisor', 'Auditor')")
     public ResponseEntity<String> listarOrdenes() {
         String resultado = restClient.get()
                 .uri(workordersServiceUrl + "/api/workorders")
@@ -45,7 +45,7 @@ public class BffWorkOrderController {
     }
 
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasAnyRole('Supervisor', 'Admin')")
+    @PreAuthorize("hasAnyRole('Cliente', 'Supervisor', 'Admin')")
     public ResponseEntity<String> actualizarEstado(@PathVariable Long id, @RequestBody String body) {
         String resultado = restClient.put()
                 .uri(workordersServiceUrl + "/api/workorders/" + id + "/status")
