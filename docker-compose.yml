@@ -53,7 +53,23 @@ services:
       - workorders-service
     networks:
       - backend-net
-
+  #servicio para notificaciones y generacion de reportes (RabbitMQ)
+  notify-service:
+    build:
+      context: ./ms-digitalfix-notify
+      dockerfile: Dockerfile
+    container_name: ms-notify
+    restart: unless-stopped
+    ports:
+      - "${NOTIFY_PORT:-8084}:8084"
+    environment:
+      - SERVER_PORT=8084
+      - SPRING_RABBITMQ_HOST=${SPRING_RABBITMQ_HOST}
+      - SPRING_RABBITMQ_PORT=${SPRING_RABBITMQ_PORT:-5672}
+      - SPRING_RABBITMQ_USERNAME=${SPRING_RABBITMQ_USERNAME}
+      - SPRING_RABBITMQ_PASSWORD=${SPRING_RABBITMQ_PASSWORD}
+    networks:
+      - backend-net
 #red interna de docker
 networks:
   backend-net:
