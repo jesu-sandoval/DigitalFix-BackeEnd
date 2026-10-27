@@ -18,6 +18,10 @@ public class RabbitConfig {
     public static final String ROUTING_KEY_EMAIL = "email.*";
     public static final String EXCHANGE_NAME = "cmd.topic";
 
+    // ruta de despacho
+    public static final String QUEUE_DISPATCH = "q.cmd.dispatch";
+    public static final String ROUTING_KEY_DISPATCH = "dispatch.#";
+
     @Value("${app.rabbitmq.exchange:cmd.direct}")
     private String directExchangeName;
 
@@ -78,6 +82,12 @@ public class RabbitConfig {
         return new Queue(QUEUE_EMAIL, true);
     }
 
+    //crea la cola de despacho 
+    @Bean
+    public Queue dispatchQueue() {
+        return new Queue(QUEUE_DISPATCH, true);
+    }
+
     //los BINDINGS 
     @Bean
     public Binding reportDirectBinding(Queue reportQueue, DirectExchange directExchange) {
@@ -99,6 +109,12 @@ public class RabbitConfig {
     @Bean
     public Binding bindingEmail(Queue emailQueue, TopicExchange topicExchange) {
         return BindingBuilder.bind(emailQueue).to(topicExchange).with(ROUTING_KEY_EMAIL);
+    }
+
+    //conecta la cola de despacho con el intercambiador topic
+    @Bean
+    public Binding bindingDispatch(Queue dispatchQueue, TopicExchange topicExchange) {
+        return BindingBuilder.bind(dispatchQueue).to(topicExchange).with(ROUTING_KEY_DISPATCH);
     }
 
     @Bean
