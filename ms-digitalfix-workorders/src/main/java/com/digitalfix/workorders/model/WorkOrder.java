@@ -23,6 +23,9 @@ public class WorkOrder {
 
     @Column(name = "cliente_nombre", length = 150)
     private String clienteNombre;
+
+    @Column(name = "cliente_email", length = 150)
+    private String clienteEmail;
     @Column(name = "tecnico_asignado", length = 150)
     private String tecnicoAsignado;
     @Column(nullable = false, columnDefinition = "TEXT")

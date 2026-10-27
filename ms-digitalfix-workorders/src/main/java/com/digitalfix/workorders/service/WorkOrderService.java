@@ -10,9 +10,11 @@ import java.util.List;
 public class WorkOrderService {
 
     private final WorkOrderRepository repositorio;
+    private final OrderNotificationPublisher notificationPublisher;
 
-    public WorkOrderService(WorkOrderRepository repositorio) {
+    public WorkOrderService(WorkOrderRepository repositorio, OrderNotificationPublisher notificationPublisher) {
         this.repositorio = repositorio;
+        this.notificationPublisher = notificationPublisher;
     }
     public List<WorkOrder> listarTodas() {
         return repositorio.findAll();
@@ -41,6 +43,41 @@ public class WorkOrderService {
         }
 
         orden.setEstado(nuevoEstado);
-        return repositorio.save(orden);
+        WorkOrder ordenGuardada = repositorio.save(orden);
+
+     //disparar eventos asincronos a rabbitmq
+        try {
+            String emailDestino = ordenGuardada.getClienteEmail() != null && !ordenGuardada.getClienteEmail().isBlank()
+                    ? ordenGuardada.getClienteEmail()
+                    : (ordenGuardada.getClienteId() != null && ordenGuardada.getClienteId().contains("@")
+                        ? ordenGuardada.getClienteId()
+                        : "cliente@digitalfix.cl");
+
+            String nombreEstado = nuevoEstado != null ? nuevoEstado.name() : "ACTUALIZADA";
+
+// e lenotifica siempre al cliente del cambio de estado
+            notificationPublisher.notificarClientePorEmail(
+                    ordenGuardada.getId(),
+                    emailDestino,
+                    ordenGuardada.getClienteNombre(),
+                    nombreEstado,
+                    "Su orden ha cambiado de estado a: " + nombreEstado
+            );
+
+ // si la orden fue asignada a un tecnico q genera ticket 
+            if (WorkOrderStatus.ASIGNADA.equals(nuevoEstado)) {
+                notificationPublisher.despacharTecnicoTerreno(
+                        ordenGuardada.getId(),
+                        tecnico != null ? tecnico : ordenGuardada.getTecnicoAsignado(),
+                        "Cuadrilla Central",
+                        ordenGuardada.getDireccion(),
+                        ordenGuardada.getDescripcion()
+                );
+            }
+        } catch (Exception e) {
+            System.err.println("Advertencia: No se pudo enviar evento a RabbitMQ: " + e.getMessage());
+        }
+
+        return ordenGuardada;
     }
 }

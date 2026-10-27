@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/reportes")
 public class ReporteController {
@@ -17,7 +18,7 @@ public class ReporteController {
     @Autowired
     private ReporteProducer reporteProducer;
 
-    //Comprobacion servicio 
+ 
     @GetMapping("/salud")
     public ResponseEntity<Map<String, String>> salud() {
         return new ResponseEntity<>(
@@ -26,7 +27,7 @@ public class ReporteController {
         );
     }
 
-    // Recibe la orden para generar reporte, la encola y responde de inmediato.
+//recibe la orden para generar reporte y la pone en cola
     @PostMapping
     public ResponseEntity<Map<String, Object>> solicitarReporte(@RequestBody ReporteMensaje reporte) {
 
