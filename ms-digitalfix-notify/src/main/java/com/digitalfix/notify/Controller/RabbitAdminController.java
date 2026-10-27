@@ -17,7 +17,7 @@ public class RabbitAdminController {
     @Autowired
     private RabbitAdminService rabbitAdminService;
 
-    /** POST /queues : Crear una cola con validacion de entrada */
+    /**POST Crear una cola con validacion de entrada */
     @PostMapping
     public ResponseEntity<Map<String, Object>> crearCola(@Valid @RequestBody QueueRequestDto dto) {
         boolean creada = rabbitAdminService.crearCola(dto.getNombre(), dto.isDurable());
@@ -31,7 +31,7 @@ public class RabbitAdminController {
         );
     }
 
-    /** DELETE /queues/{name} : Eliminar una cola existente */
+    /**DELETE Eliminar una cola existente */
     @DeleteMapping("/{name}")
     public ResponseEntity<Map<String, Object>> eliminarCola(@PathVariable("name") String name) {
         boolean eliminada = rabbitAdminService.eliminarCola(name);
@@ -44,7 +44,7 @@ public class RabbitAdminController {
         );
     }
 
-    /** GET /queues/{name} : Consultar estado y mensajes en la cola */
+    /**GET Consultar estado y mensajes en la cola */
     @GetMapping("/{name}")
     public ResponseEntity<?> consultarCola(@PathVariable("name") String name) {
         Properties info = rabbitAdminService.obtenerInfoCola(name);

@@ -13,6 +13,11 @@ import java.util.Map;
 @Configuration
 public class RabbitConfig {
 
+//esto es para la cola y ruta de correo
+    public static final String QUEUE_EMAIL = "q.cmd.email";
+    public static final String ROUTING_KEY_EMAIL = "email.*";
+    public static final String EXCHANGE_NAME = "cmd.topic";
+
     @Value("${app.rabbitmq.exchange:cmd.direct}")
     private String directExchangeName;
 
@@ -67,7 +72,13 @@ public class RabbitConfig {
         return new Queue(reportQueueName, true, false, false, args);
     }
 
-    // BINDINGS 
+    //crea la cola de correos 
+    @Bean
+    public Queue emailQueue() {
+        return new Queue(QUEUE_EMAIL, true);
+    }
+
+    //los BINDINGS 
     @Bean
     public Binding reportDirectBinding(Queue reportQueue, DirectExchange directExchange) {
         return BindingBuilder
@@ -82,6 +93,12 @@ public class RabbitConfig {
                 .bind(reportQueue)
                 .to(topicExchange)
                 .with(reportTopicRoutingKey);
+    }
+
+    //    conecta la cola de correos con el topic
+    @Bean
+    public Binding bindingEmail(Queue emailQueue, TopicExchange topicExchange) {
+        return BindingBuilder.bind(emailQueue).to(topicExchange).with(ROUTING_KEY_EMAIL);
     }
 
     @Bean

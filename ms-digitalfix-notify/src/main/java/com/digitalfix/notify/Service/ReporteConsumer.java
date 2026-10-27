@@ -27,7 +27,7 @@ public class ReporteConsumer {
                 "[CONSUMIDOR] EventId: " + reporte.getEventId() + " | Cliente: " + reporte.getClienteNombre());
 
         try {
-            // 1. Control de Idempotencia
+            //Control de Idempotencia
             if (reporte.getEventId() != null && eventosProcesados.contains(reporte.getEventId())) {
                 System.out.println(
                         "[CONSUMIDOR] Evento duplicado detectado (" + reporte.getEventId() + "). Descartando...");
@@ -36,18 +36,18 @@ public class ReporteConsumer {
                 return;
             }
 
-            // 2. Validacion de datos minimos (si viene invalido, se manda a DLQ)
+            // Validacion de datos 
             if (reporte.getOrderId() == null || reporte.getOrderId() <= 0) {
                 throw new IllegalArgumentException("El ID de la orden es invalido o viene vacio");
             }
 
-            // 3. Simulacion de generacion del informe tecnico PDF
+            //Simulacion de generacion del informe tecnico PDF
             System.out.println("[CONSUMIDOR] Generando informe PDF.");
             Thread.sleep(2000);
             System.out.println("[CONSUMIDOR] PDF generado con exito para la orden #" + reporte.getOrderId()
                     + " por un total de $" + reporte.getTotal());
 
-            // 4. Confirmacion exitosa (ACK)
+            // Confirmacion exitosa 
             channel.basicAck(tag, false);
             if (reporte.getEventId() != null) {
                 eventosProcesados.add(reporte.getEventId());
@@ -55,13 +55,11 @@ public class ReporteConsumer {
             System.out.println("[CONSUMIDOR] ACK enviado a RabbitMQ. Tarea finalizada.\n");
 
         } catch (IllegalArgumentException e) {
-            // Error de negocio/datos: rechazo definitivo hacia la DLQ (q.cmd.report.dlq)
             System.err.println("[CONSUMIDOR] Error de datos no recuperable: " + e.getMessage());
             System.err.println("[CONSUMIDOR] Enviando NACK (requeue=false) -> El mensaje viaja a q.cmd.report.dlq\n");
             channel.basicNack(tag, false, false);
 
         } catch (Exception e) {
-            // Error inesperado: rechazo hacia la DLQ
             System.err.println("[CONSUMIDOR] Error inesperado procesando reporte: " + e.getMessage());
             channel.basicNack(tag, false, false);
         }

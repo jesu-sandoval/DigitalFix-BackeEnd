@@ -53,7 +53,7 @@ services:
       - workorders-service
     networks:
       - backend-net
-  #servicio para notificaciones y generacion de reportes (RabbitMQ)
+#servicio para  rabbitmq
   notify-service:
     build:
       context: ./ms-digitalfix-notify
@@ -64,6 +64,7 @@ services:
       - "${NOTIFY_PORT:-8084}:8084"
     environment:
       - SERVER_PORT=8084
+      - PORT=8084
       - SPRING_RABBITMQ_HOST=${SPRING_RABBITMQ_HOST}
       - SPRING_RABBITMQ_PORT=${SPRING_RABBITMQ_PORT:-5672}
       - SPRING_RABBITMQ_USERNAME=${SPRING_RABBITMQ_USERNAME}

@@ -17,7 +17,7 @@ public class ReporteController {
     @Autowired
     private ReporteProducer reporteProducer;
 
-    // Comprobacion de salud del servicio 
+    //Comprobacion servicio 
     @GetMapping("/salud")
     public ResponseEntity<Map<String, String>> salud() {
         return new ResponseEntity<>(
