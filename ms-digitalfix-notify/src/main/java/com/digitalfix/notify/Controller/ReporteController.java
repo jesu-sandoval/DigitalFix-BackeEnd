@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/reportes")
 public class ReporteController {

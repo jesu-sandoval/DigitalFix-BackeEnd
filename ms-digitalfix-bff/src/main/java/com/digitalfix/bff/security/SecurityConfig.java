@@ -48,8 +48,8 @@ public class SecurityConfig {
         return converter;
     }
 
-    //origenes permitidos para cors cargados desde configuracion
-    @Value("${cors.allowed-origins:http://localhost:5173,http://localhost}")
+    // origenes permitidos para cors cargados desde configuracion
+    @Value("${cors.allowed-origins:${CORS_ALLOWED_ORIGINS:}}")
     private String allowedOrigins;
 
     //configuracion de permisos cors para el frontend

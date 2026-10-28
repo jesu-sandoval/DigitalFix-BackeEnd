@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
 @RestController
-@RequestMapping("/api/catalog")
+@RequestMapping({"/api/catalog", "/catalog"})
 public class BffCatalogController {
 
     private final RestClient restClient;
