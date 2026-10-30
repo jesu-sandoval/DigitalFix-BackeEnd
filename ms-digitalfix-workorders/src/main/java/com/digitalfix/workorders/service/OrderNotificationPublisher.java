@@ -5,14 +5,13 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @Service
 public class OrderNotificationPublisher {
+
     private final RabbitTemplate rabbitTemplate;
-    private static final String EXCHANGE_NAME = "cmd.topic";
+    private static final String TOPIC_EXCHANGE = "cmd.topic";
+    private static final String DIRECT_EXCHANGE = "cmd.direct";
 
-
-    
     public OrderNotificationPublisher(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
@@ -27,7 +26,7 @@ public class OrderNotificationPublisher {
         mensajeEmail.put("mensaje", detalle);
 
     //publica usando la clave de ruta para correos
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "email.notificacion", mensajeEmail);
+        rabbitTemplate.convertAndSend(TOPIC_EXCHANGE, "email.notificacion", mensajeEmail);
         System.out.println(">>> Evento de correo publicado para orden #" + ordenId);
     }
 
@@ -41,9 +40,10 @@ public class OrderNotificationPublisher {
         mensajeDespacho.put("descripcion", descripcion != null ? descripcion : "Trabajo de mantencion");
 
      //lo publica usando la ruta para despacho
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "dispatch.ticket", mensajeDespacho);
+        rabbitTemplate.convertAndSend(TOPIC_EXCHANGE, "dispatch.ticket", mensajeDespacho);
         System.out.println(">>> Evento de despacho publicado para orden #" + ordenId);
     }
+
 
 //emite la solicitud de reporte 
     public void solicitarReporteOrden(Long orderId, String clienteNombre, String tecnicoAsignado, String descripcion, Double total) {
@@ -57,8 +57,9 @@ public class OrderNotificationPublisher {
         reporte.put("descripcion", descripcion != null ? descripcion : "Servicio técnico");
         reporte.put("total", total != null ? total : 0.0);
 
+
  //se despacha a traves del exchange configurado hacia la cola de reportes
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "report.gen", reporte);
+        rabbitTemplate.convertAndSend(DIRECT_EXCHANGE, "report.gen", reporte);
         System.out.println(">>> Solicitud de PDF emitida a RabbitMQ para la orden #" + orderId);
     }
 
@@ -66,4 +67,3 @@ public class OrderNotificationPublisher {
         solicitarReporteOrden(orderId, clienteNombre, tecnicoAsignado, descripcion, total != null ? total.doubleValue() : 0.0);
     }
 }
-
